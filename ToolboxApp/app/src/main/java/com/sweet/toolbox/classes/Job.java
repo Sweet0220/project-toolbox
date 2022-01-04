@@ -6,8 +6,9 @@ public class Job implements Serializable {
 
     int id, vehicleID, day, month, year, brakeIcon, engineIcon, suspensionIcon, otherIcon;
     String jobDetails;
+    double cost;
 
-    public Job(int id, int vehicleID, int day, int month, int year, int brakeIcon, int engineIcon, int suspensionIcon,int otherIcon, String jobDetails)
+    public Job(int id, int vehicleID, int day, int month, int year, int brakeIcon, int engineIcon, int suspensionIcon,int otherIcon, String jobDetails, double cost)
     {
         this.id = id;
         this.vehicleID = vehicleID;
@@ -19,6 +20,7 @@ public class Job implements Serializable {
         this.suspensionIcon = suspensionIcon;
         this.otherIcon = otherIcon;
         this.jobDetails = jobDetails;
+        this.cost = cost;
     }
 
 }
