@@ -32,7 +32,7 @@ public class SaveSystem {
             return data;
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            return null;
+            return new AppData();
         }
     }
 

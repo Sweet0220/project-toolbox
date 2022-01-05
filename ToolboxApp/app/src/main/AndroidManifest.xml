@@ -9,7 +9,16 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Toolbox">
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".VehicleMenu"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".AddPerson"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

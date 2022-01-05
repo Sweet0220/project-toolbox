@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPerson"
+    android:background="#FBFAEC">
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_back_controller"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+    <TextView
+        android:id="@+id/appTitle2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/prototype_font"
+        android:text="Toolbox"
+        android:textColor="#373737"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="47dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appTitle2"
+        app:layout_constraintEnd_toStartOf="@+id/appTitle2"
+        app:layout_constraintTop_toTopOf="@+id/appTitle2"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/ic_toolbox" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="13dp"
+        android:alpha="10"
+        android:background="#373737"
+        android:backgroundTint="#373737"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTitle2">
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/lastNameInput"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Nume"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/firstNameInput"
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Prenume"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastNameInput" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/exo_font"
+        android:text="Persoana Noua"
+        android:textColor="#757575"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/exo_font"
+        android:text="- Toate campurile trebuie completate!"
+        android:textColor="#757575"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/firstNameInput"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameInput" />
+
+    <Button
+        android:id="@+id/addPersonButton"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/person_menu_frame_controller"
+        android:fontFamily="@font/exo_font"
+        android:text="+ Adauga"
+        android:textColor="#FBFAEC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/addPersonButton"
+        app:layout_constraintStart_toStartOf="@+id/addPersonButton"
+        app:layout_constraintTop_toBottomOf="@+id/addPersonButton"
+        app:srcCompat="@drawable/bottom_rectangle_rc" />
+</androidx.constraintlayout.widget.ConstraintLayout>

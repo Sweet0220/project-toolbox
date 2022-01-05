@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Vehicle implements Serializable {
 
-    int id, personID, typeOfVehicle;
-    String brand, licensePlate;
+    public int id, personID, typeOfVehicle;
+    public String brand, licensePlate;
 
     public Vehicle(int id, int personID, int typeOfVehicle, String brand, String licensePlate)
     {
