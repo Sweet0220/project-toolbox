@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Job implements Serializable {
 
-    int id, vehicleID, day, month, year, brakeIcon, engineIcon, suspensionIcon, otherIcon;
-    String jobDetails;
-    double cost;
+    public int id, vehicleID, day, month, year, brakeIcon, engineIcon, suspensionIcon, otherIcon;
+    public String jobDetails;
+    public double cost;
 
     public Job(int id, int vehicleID, int day, int month, int year, int brakeIcon, int engineIcon, int suspensionIcon,int otherIcon, String jobDetails, double cost)
     {

@@ -47,12 +47,12 @@
         android:id="@+id/nameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="5dp"
         android:fontFamily="@font/prototype_font"
         android:text="nume pers"
         android:textColor="#373737"
-        android:textSize="22sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView6"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBFAEC"
+    tools:context=".AddVehicle">
+
+    <EditText
+        android:id="@+id/licensePlateInput"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Nr. inmatriculare"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brandInput" />
+
+    <EditText
+        android:id="@+id/brandInput"
+        android:layout_width="350dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Marca"
+        android:inputType="textPersonName"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTarget" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/addVehicleButton"
+        app:layout_constraintStart_toStartOf="@+id/addVehicleButton"
+        app:layout_constraintTop_toBottomOf="@+id/addVehicleButton"
+        app:srcCompat="@drawable/bottom_rectangle_rc" />
+
+    <Button
+        android:id="@+id/addVehicleButton"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/person_menu_frame_controller"
+        android:fontFamily="@font/exo_font"
+        android:text="+ Adauga"
+        android:textColor="#FBFAEC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/exo_font"
+        android:text="Autovehicul nou pentru"
+        android:textColor="#757575"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/nameTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/exo_font"
+        android:text="nume pers"
+        android:textColor="#757575"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <Button
+        android:id="@+id/backButton2"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_back_controller"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+    <TextView
+        android:id="@+id/appTitle3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/prototype_font"
+        android:text="Toolbox"
+        android:textColor="#373737"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="47dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appTitle3"
+        app:layout_constraintEnd_toStartOf="@+id/appTitle3"
+        app:layout_constraintTop_toTopOf="@+id/appTitle3"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/ic_toolbox" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/iconHolder"
+        android:layout_width="350dp"
+        android:layout_height="230dp"
+        android:background="@drawable/person_menu_frame"
+        app:layout_constraintBottom_toTopOf="@+id/addVehicleButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/licensePlateInput">
+
+        <ImageView
+            android:id="@+id/smallCarButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delorean_white" />
+
+        <ImageView
+            android:id="@+id/minivanButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/smallCarButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_minivan_black" />
+
+        <ImageView
+            android:id="@+id/ivecoButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/minivanButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_iveco_black" />
+
+        <ImageView
+            android:id="@+id/ategoButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toStartOf="@+id/smallCarButton"
+            app:layout_constraintTop_toBottomOf="@+id/smallCarButton"
+            app:srcCompat="@drawable/ic_atego_black" />
+
+        <ImageView
+            android:id="@+id/scaniaButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/ategoButton"
+            app:layout_constraintTop_toBottomOf="@+id/smallCarButton"
+            app:srcCompat="@drawable/ic_scania_black" />
+
+        <ImageView
+            android:id="@+id/trailerButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            app:layout_constraintStart_toEndOf="@+id/scaniaButton"
+            app:layout_constraintTop_toBottomOf="@+id/smallCarButton"
+            app:srcCompat="@drawable/ic_trailer_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="13dp"
+        android:alpha="10"
+        android:background="#373737"
+        android:backgroundTint="#373737"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTitle3">
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

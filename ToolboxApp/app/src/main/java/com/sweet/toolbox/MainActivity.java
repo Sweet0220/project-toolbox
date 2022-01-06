@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.sweet.toolbox.classes.AppData;
 import com.sweet.toolbox.classes.SaveSystem;
-import com.sweet.toolbox.classes.Vehicle;
 
 import java.io.File;
 
@@ -31,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void openAddPersonActivity()
     {
         Intent intent = new Intent(this, AddPerson.class);
@@ -42,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume()
     {
         super.onResume();
-        LinearLayout mainLayout = findViewById(R.id.vehicleMenuLinearLayout);
+        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
         mainLayout.removeAllViews();
         fillMenuList();
     }
@@ -58,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 openAddPersonActivity();
             }
         });
-        LinearLayout mainLayout = findViewById(R.id.vehicleMenuLinearLayout);
+        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
         mainLayout.removeAllViews();
         fillMenuList();
     }
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i=1;i<=data.numberOfPeople;i++)
         {
-            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.vehicleMenuLinearLayout);
+            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.mainMenuLinearLayout);
 
             ConstraintLayout newPersonFrame = createPersonFrame(i,data);
 
