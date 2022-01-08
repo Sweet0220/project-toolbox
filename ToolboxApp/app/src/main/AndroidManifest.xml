@@ -9,13 +9,23 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Toolbox">
-        <activity android:name=".AddVehicle"
+        <activity android:name=".AddJob"
             android:screenOrientation="portrait">
 
         </activity>
         <activity
+            android:name=".JobMenu"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name=".AddVehicle"
+            android:screenOrientation="portrait" >
+
+        </activity>
+        <activity
             android:name=".VehicleMenu"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddPerson"
             android:screenOrientation="portrait" />

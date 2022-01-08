@@ -189,11 +189,17 @@ public class VehicleMenu extends AppCompatActivity {
                 data.lastVehicleInteraction = id;
                 File path = getApplicationContext().getFilesDir();
                 SaveSystem.saveData(path,data);
-                //openJobMenuActivity();
+                openJobMenuActivity();
             }
         });
 
         return vehicleFrame;
+    }
+
+    private void openJobMenuActivity()
+    {
+        Intent intent = new Intent(this, JobMenu.class);
+        startActivity(intent);
     }
 
     private TextView createLicenseText(AppData data, int id)

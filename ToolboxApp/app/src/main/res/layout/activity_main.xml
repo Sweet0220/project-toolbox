@@ -71,16 +71,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/trash"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/ic_trash_controller"
-        app:layout_constraintBottom_toBottomOf="@+id/appTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appTitle" />
-
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="0dp"

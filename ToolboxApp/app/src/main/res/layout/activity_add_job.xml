@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBFAEC"
+    tools:context=".AddJob">
+
+    <EditText
+        android:id="@+id/costInput"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Cost"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/detailsInput"
+        app:layout_constraintTop_toBottomOf="@+id/detailsInput"
+        tools:paddingRight="20dp" />
+
+    <ImageView
+        android:id="@+id/imageView11"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/addJobButton"
+        app:layout_constraintStart_toStartOf="@+id/addJobButton"
+        app:layout_constraintTop_toBottomOf="@+id/addJobButton"
+        app:srcCompat="@drawable/bottom_rectangle_rc" />
+
+    <Button
+        android:id="@+id/addJobButton"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/person_menu_frame_controller"
+        android:fontFamily="@font/exo_font"
+        android:text="+ Adauga"
+        android:textColor="#FBFAEC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/dayInput"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Ziua"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/jobIconHolder"
+        app:layout_constraintTop_toTopOf="@+id/monthInput"
+        tools:paddingRight="20dp" />
+
+    <EditText
+        android:id="@+id/monthInput"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Luna"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/yearInput"
+        app:layout_constraintStart_toEndOf="@+id/dayInput"
+        app:layout_constraintTop_toBottomOf="@+id/licenseTarget"
+        tools:paddingRight="20dp" />
+
+    <EditText
+        android:id="@+id/yearInput"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:hint="Anul"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/jobIconHolder"
+        app:layout_constraintTop_toTopOf="@+id/monthInput"
+        tools:paddingRight="20dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="13dp"
+        android:alpha="10"
+        android:background="#373737"
+        android:backgroundTint="#373737"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTitle4">
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/backButton3"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="25dp"
+        android:background="@drawable/ic_back_controller"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView9" />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="47dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="@+id/appTitle4"
+        app:layout_constraintEnd_toStartOf="@+id/appTitle4"
+        app:layout_constraintTop_toTopOf="@+id/appTitle4"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/ic_toolbox" />
+
+    <TextView
+        android:id="@+id/appTitle4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/prototype_font"
+        android:text="Toolbox"
+        android:textColor="#373737"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/licenseTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/exo_font"
+        android:text="Lucrare noua pentru"
+        android:textColor="#757575"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <TextView
+        android:id="@+id/leiText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/exo_font"
+        android:text="RON"
+        android:textColor="#757575"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/costInput"
+        app:layout_constraintStart_toEndOf="@+id/costInput"
+        app:layout_constraintTop_toTopOf="@+id/costInput" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/jobIconHolder"
+        android:layout_width="310dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/person_menu_frame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monthInput">
+
+        <ImageView
+            android:id="@+id/addBrakeIcon"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_brake_black" />
+
+        <ImageView
+            android:id="@+id/addEngineButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addBrakeIcon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_engine_black" />
+
+        <ImageView
+            android:id="@+id/addSuspensionButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addEngineButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_suspension_black" />
+
+        <ImageView
+            android:id="@+id/addOtherButton"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addSuspensionButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_others_black" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <EditText
+        android:id="@+id/detailsInput"
+        android:layout_width="310dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/person_menu_frame"
+        android:ems="10"
+        android:fontFamily="@font/exo_font"
+        android:gravity="start|top"
+        android:hint="Detalii lucrare"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:textColor="#FBFAEC"
+        android:textColorHint="#757575"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/jobIconHolder"
+        app:layout_constraintTop_toBottomOf="@+id/jobIconHolder" />
+</androidx.constraintlayout.widget.ConstraintLayout>
