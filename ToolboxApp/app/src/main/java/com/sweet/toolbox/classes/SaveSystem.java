@@ -1,5 +1,8 @@
 package com.sweet.toolbox.classes;
 
+import android.content.Context;
+import android.os.Environment;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,11 +12,16 @@ import java.io.ObjectOutputStream;
 
 public class SaveSystem {
 
-    public static void saveData(File path, AppData data) {
-        String fileName = "data.bin";
+    public static void saveData(Context context,AppData data) {
+        File root = new File(context.getExternalFilesDir(null).getAbsolutePath());
+        File dir = new File(root+"/date_toolbox");
+        if(!dir.exists())
+            dir.mkdirs();
+        String fileName = "toolbox_data.bin";
+        File file = new File(dir,fileName);
         try {
 
-            FileOutputStream stream = new FileOutputStream(new File(path,fileName));
+            FileOutputStream stream = new FileOutputStream(file);
             ObjectOutputStream objectStream = new ObjectOutputStream(stream);
 
             objectStream.writeObject(data);
@@ -22,10 +30,15 @@ public class SaveSystem {
         }
     }
 
-    public static AppData loadData(File path) {
-        String fileName = "data.bin";
+    public static AppData loadData(Context context) {
+        File root = new File(context.getExternalFilesDir(null).getAbsolutePath());
+        File dir = new File(root + "/date_toolbox");
+        if(!dir.exists())
+            dir.mkdir();
+        String fileName = "toolbox_data.bin";
+        File file = new File(dir,fileName);
         try {
-            FileInputStream stream = new FileInputStream(new File(path,fileName));
+            FileInputStream stream = new FileInputStream(file);
             ObjectInputStream objectStream = new ObjectInputStream(stream);
             AppData data;
             data = (AppData) objectStream.readObject();

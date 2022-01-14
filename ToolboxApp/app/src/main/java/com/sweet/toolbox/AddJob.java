@@ -31,8 +31,7 @@ public class AddJob extends AppCompatActivity {
             }
         });
 
-        File path = getApplicationContext().getFilesDir();
-        AppData data = SaveSystem.loadData(path);
+        AppData data = SaveSystem.loadData(this);
 
         TextView licenseTarget = findViewById(R.id.licenseTarget);
         String content = "Lucrare noua pentru " + data.vehicleArray[data.lastVehicleInteraction].licensePlate;
@@ -152,7 +151,7 @@ public class AddJob extends AppCompatActivity {
                     String detailsText = detailsInput.getText().toString();
                     data.numberOfJobs++;
                     data.jobArray[data.numberOfJobs] = new Job(data.numberOfJobs, data.lastVehicleInteraction, d, m, y, brakeCheck[0], engineCheck[0], suspensionCheck[0], otherCheck[0],detailsText,cost,0);
-                    SaveSystem.saveData(path,data);
+                    SaveSystem.saveData(AddJob.this,data);
                     finish();
                 }
             }

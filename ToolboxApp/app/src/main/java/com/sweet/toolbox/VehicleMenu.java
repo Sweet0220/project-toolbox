@@ -62,8 +62,7 @@ public class VehicleMenu extends AppCompatActivity {
             }
         });
 
-        File path = getApplicationContext().getFilesDir();
-        AppData data = SaveSystem.loadData(path);
+        AppData data = SaveSystem.loadData(this);
 
         Button backButton = findViewById(R.id.backToPersonMenu);
 
@@ -86,8 +85,7 @@ public class VehicleMenu extends AppCompatActivity {
 
     private void fillVehicleList()
     {
-        File path = getApplicationContext().getFilesDir();
-        AppData data = SaveSystem.loadData(path);
+        AppData data = SaveSystem.loadData(this);
         LinearLayout vehicleLayout = findViewById(R.id.vehicleMenuLinearLayout);
 
         for(int i=1;i<=data.numberOfVehicles;i++)
@@ -187,8 +185,7 @@ public class VehicleMenu extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 data.lastVehicleInteraction = id;
-                File path = getApplicationContext().getFilesDir();
-                SaveSystem.saveData(path,data);
+                SaveSystem.saveData(VehicleMenu.this,data);
                 openJobMenuActivity();
             }
         });

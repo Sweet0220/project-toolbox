@@ -44,11 +44,10 @@ public class AddPerson extends AppCompatActivity {
                 }
                 else
                 {
-                    File path = getApplicationContext().getFilesDir();
-                    AppData data = SaveSystem.loadData(path);
+                    AppData data = SaveSystem.loadData(AddPerson.this);
                     data.numberOfPeople++;
                     data.personArray[data.numberOfPeople] = new Person(data.numberOfPeople, firstNameInput.getText().toString(), lastNameInput.getText().toString());
-                    SaveSystem.saveData(path,data);
+                    SaveSystem.saveData(AddPerson.this,data);
                     finish();
                 }
             }

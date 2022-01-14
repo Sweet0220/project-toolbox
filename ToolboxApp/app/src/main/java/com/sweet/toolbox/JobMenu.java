@@ -69,8 +69,7 @@ public class JobMenu extends AppCompatActivity {
 
     private void setNameAndIcon()
     {
-        File path = getApplication().getFilesDir();
-        AppData data = SaveSystem.loadData(path);
+        AppData data = SaveSystem.loadData(this);
 
         TextView licenseTitle = findViewById(R.id.vehicleTitle);
         licenseTitle.setText(data.vehicleArray[data.lastVehicleInteraction].licensePlate);
@@ -102,8 +101,7 @@ public class JobMenu extends AppCompatActivity {
 
     private void fillJobMenu()
     {
-        File path = getApplicationContext().getFilesDir();
-        AppData data = SaveSystem.loadData(path);
+        AppData data = SaveSystem.loadData(this);
 
         LinearLayout jobLayout = findViewById(R.id.jobMenuLinearLayout);
         jobLayout.removeAllViews();
@@ -365,6 +363,15 @@ public class JobMenu extends AppCompatActivity {
         jobFrame.setId(10000+id);
         jobFrame.setBackgroundResource(R.drawable.person_menu_frame_controller);
 
+        jobFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.lastJobInteraction = id;
+                SaveSystem.saveData(JobMenu.this,data);
+                openJobDetails();
+            }
+        });
+
         return jobFrame;
     }
 
@@ -413,10 +420,16 @@ public class JobMenu extends AppCompatActivity {
                 createTickIcon(id,frame);
                 TextView statusText = findViewById(11500+id);
                 statusText.setText("Status: platit");
-                SaveSystem.saveData(path,data);
+                SaveSystem.saveData(JobMenu.this,data);
             }
         });
 
+    }
+
+    private void openJobDetails()
+    {
+        Intent intent = new Intent(this, JobDetails.class);
+        startActivity(intent);
     }
 
 }

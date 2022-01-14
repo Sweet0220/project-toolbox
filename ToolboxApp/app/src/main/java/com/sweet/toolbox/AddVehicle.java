@@ -33,9 +33,8 @@ public class AddVehicle extends AppCompatActivity {
             }
         });
 
-        File path = getApplicationContext().getFilesDir();
 
-        AppData data = SaveSystem.loadData(path);
+        AppData data = SaveSystem.loadData(this);
 
         TextView nameTarget = findViewById(R.id.nameTarget);
         String content = data.personArray[data.lastPersonInteraction].firstName + " " + data.personArray[data.lastPersonInteraction].lastName;
@@ -148,7 +147,7 @@ public class AddVehicle extends AppCompatActivity {
                     File path = getApplicationContext().getFilesDir();
                     data.numberOfVehicles++;
                     data.vehicleArray[data.numberOfVehicles] = new Vehicle(data.numberOfVehicles, data.lastPersonInteraction, selectedVehicle[0], brandInput.getText().toString(), licensePlateInput.getText().toString());
-                    SaveSystem.saveData(path,data);
+                    SaveSystem.saveData(AddVehicle.this,data);
                     finish();
                 }
             }
