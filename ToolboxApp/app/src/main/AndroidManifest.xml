@@ -12,16 +12,19 @@
         android:roundIcon="@mipmap/logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Toolbox">
-        <activity android:name=".JobDetails"></activity>
+        <activity android:name=".EditJob"></activity>
+        <activity android:name=".EditVehicle" />
+        <activity android:name=".EditPerson" />
+        <activity android:name=".JobDetails" />
         <activity
             android:name=".AddJob"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".JobMenu"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddVehicle"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".VehicleMenu"
             android:screenOrientation="portrait" />

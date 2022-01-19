@@ -26,6 +26,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
+    int editToggle=0,deleteToggle=0;
 
     public void openVehicleMenuActivity()
     {
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     {
+        editToggle = 0;
+        deleteToggle = 0;
         super.onResume();
-        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
-        mainLayout.removeAllViews();
         fillMenuList();
     }
 
@@ -66,28 +67,71 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button addButton = (Button) findViewById(R.id.goToAddPerson);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(view -> openAddPersonActivity());
+
+        Button editPersonButton = (Button) findViewById(R.id.editPersonButton);
+        editPersonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openAddPersonActivity();
+                if(deleteToggle == 1)
+                    deleteToggle = 0;
+                if(editToggle == 1)
+                {
+                    editToggle = 0;
+                    fillMenuList();
+                }
+                else
+                {
+                    editToggle = 1;
+                    fillMenuListEdit();
+                }
+
             }
         });
-        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
-        mainLayout.removeAllViews();
+
         fillMenuList();
     }
 
 
     //region DynamicalCreation
 
-    private void fillMenuList()
+    private void fillMenuListEdit()
     {
+        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
+        mainLayout.removeAllViews();
         AppData data = SaveSystem.loadData(this);
 
         for(int i=1;i<=data.numberOfPeople;i++)
         {
-            LinearLayout mainLayout = (LinearLayout) findViewById(R.id.mainMenuLinearLayout);
+            ConstraintLayout newPersonFrame = createPersonFrame(i,data);
 
+
+            ImageView personImage = createPersonImage(i,newPersonFrame);
+            addConstraintsToImage(personImage,newPersonFrame);
+
+
+            TextView nameText = createFullName(data,i);
+            addConstraintsToFullName(nameText,personImage,newPersonFrame);
+
+
+            TextView numberText = createNumberText(data,i);
+            addConstraintsToNumber(nameText,numberText,newPersonFrame);
+
+            ImageView editButton = createEditButton(newPersonFrame,i);
+
+            mainLayout.addView(newPersonFrame);
+        }
+    }
+
+    private void fillMenuList()
+    {
+
+        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
+        mainLayout.removeAllViews();
+        AppData data = SaveSystem.loadData(this);
+
+        for(int i=1;i<=data.numberOfPeople;i++)
+        {
             ConstraintLayout newPersonFrame = createPersonFrame(i,data);
 
 
@@ -137,6 +181,42 @@ public class MainActivity extends AppCompatActivity {
         cs.applyTo(newPersonFrame);
     }
 
+    private ImageView createEditButton(ConstraintLayout personFrame, int id)
+    {
+        ImageView editButton = new ImageView(this);
+        personFrame.addView(editButton);
+        editButton.setId(16000+id);
+        editButton.getLayoutParams().height = 90;
+        editButton.getLayoutParams().width = 90;
+        editButton.setImageResource(R.drawable.ic_edit_button_white);
+        editButton.setClickable(true);
+        ConstraintSet cs = new ConstraintSet();
+        cs.clone(personFrame);
+        cs.connect(editButton.getId(), ConstraintSet.END, personFrame.getId(),ConstraintSet.END,20);
+        cs.connect(editButton.getId(), ConstraintSet.TOP, personFrame.getId(),ConstraintSet.TOP);
+        cs.connect(editButton.getId(), ConstraintSet.BOTTOM, personFrame.getId(),ConstraintSet.BOTTOM);
+        cs.applyTo(personFrame);
+
+        AppData data = SaveSystem.loadData(this);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.lastPersonInteraction = id;
+                SaveSystem.saveData(MainActivity.this, data);
+                openEditPersonActivity();
+            }
+        });
+
+        return editButton;
+    }
+
+    private void openEditPersonActivity()
+    {
+        Intent intent = new Intent(this,EditPerson.class);
+        startActivity(intent);
+    }
+
     private TextView createFullName(AppData data, int id)
     {
         TextView nameText = new TextView(this);
@@ -144,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         nameText.setId(200+id);
         Typeface tf = ResourcesCompat.getFont(this, R.font.exo_font);
         nameText.setTypeface(tf);
-        String fullName = data.personArray[id].firstName + " " + data.personArray[id].lastName;
+        String fullName = data.personArray[id].lastName + " " + data.personArray[id].firstName;
         nameText.setText(fullName);
         nameText.setTextColor(Color.parseColor("#FBFAEC"));
         nameText.setTextSize(18);

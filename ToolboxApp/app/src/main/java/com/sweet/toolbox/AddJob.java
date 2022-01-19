@@ -128,10 +128,14 @@ public class AddJob extends AppCompatActivity {
                 EditText costInput = findViewById(R.id.costInput);
                 EditText detailsInput = findViewById(R.id.detailsInput);
 
-                if(dayInput.getText().toString()=="" || monthInput.getText().toString()==""
-                || yearInput.getText().toString()=="" || costInput.getText().toString()=="" || detailsInput.getText().toString()=="")
+                if(dayInput.getText().toString().equals("")|| monthInput.getText().toString().equals("")
+                || yearInput.getText().toString().equals("") || costInput.getText().toString().equals("") || detailsInput.getText().toString().equals(""))
                 {
                     Toast.makeText(AddJob.this,"Exista un camp gol!",Toast.LENGTH_SHORT).show();
+                }
+                else if(Integer.parseInt(monthInput.getText().toString()) == 2 && Integer.parseInt(dayInput.getText().toString()) > 29)
+                {
+                    Toast.makeText(AddJob.this,"Luna februarie nu are atatea zile..",Toast.LENGTH_SHORT).show();
                 }
                 else if(Integer.parseInt(dayInput.getText().toString())<1 || Integer.parseInt(dayInput.getText().toString())>31)
                 {

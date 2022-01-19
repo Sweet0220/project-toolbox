@@ -26,6 +26,8 @@ import java.io.File;
 
 public class VehicleMenu extends AppCompatActivity {
 
+    int editToggle = 0, deleteToggle = 0;
+
     private void setName(AppData data)
     {
         TextView name = findViewById(R.id.nameTitle);
@@ -43,6 +45,8 @@ public class VehicleMenu extends AppCompatActivity {
     @Override
     protected void onResume()
     {
+        editToggle = 0;
+        deleteToggle = 0;
         super.onResume();
         LinearLayout mainLayout = findViewById(R.id.vehicleMenuLinearLayout);
         mainLayout.removeAllViews();
@@ -66,27 +70,73 @@ public class VehicleMenu extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.backToPersonMenu);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(view -> {
+            finish();
+        });
+
+        Button editVehicleButton = findViewById(R.id.editVehicleButton);
+        editVehicleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                if(deleteToggle == 1)
+                    deleteToggle = 0;
+                if(editToggle == 1)
+                {
+                    editToggle = 0;
+                    fillVehicleList();
+                }
+                else
+                {
+                    editToggle = 1;
+                    fillVehicleListEdit();
+                }
+
             }
         });
 
         setName(data);
-
-        LinearLayout vehicleLayout = findViewById(R.id.vehicleMenuLinearLayout);
-        vehicleLayout.removeAllViews();
 
         fillVehicleList();
     }
 
     //region DynamicalCreation
 
+    private void fillVehicleListEdit()
+    {
+        AppData data = SaveSystem.loadData(this);
+        LinearLayout vehicleLayout = findViewById(R.id.vehicleMenuLinearLayout);
+        vehicleLayout.removeAllViews();
+
+        for(int i=1;i<=data.numberOfVehicles;i++)
+        {
+            if(data.vehicleArray[i].personID == data.lastPersonInteraction)
+            {
+                ConstraintLayout vehicleFrame = createVehicleFrame(i,data);
+
+                ImageView vehicleImage = createVehicleImage(i,vehicleFrame,data);
+                addConstraintsToImage(vehicleImage,vehicleFrame);
+
+                TextView brand = createBrandText(data,i);
+                addConstraintsToBrand(brand,vehicleImage,vehicleFrame);
+
+                TextView licensePlate = createLicenseText(data,i);
+                addConstraintsToLicensePlate(vehicleFrame,licensePlate,brand);
+
+                TextView numberText = createNumberText(data, i);
+                addConstraintsToNumberText(vehicleFrame,licensePlate,numberText);
+
+                ImageView editButton = createEditButton(vehicleFrame,i);
+
+                vehicleLayout.addView(vehicleFrame);
+            }
+        }
+    }
+
     private void fillVehicleList()
     {
         AppData data = SaveSystem.loadData(this);
         LinearLayout vehicleLayout = findViewById(R.id.vehicleMenuLinearLayout);
+        vehicleLayout.removeAllViews();
 
         for(int i=1;i<=data.numberOfVehicles;i++)
         {
@@ -149,6 +199,42 @@ public class VehicleMenu extends AppCompatActivity {
         cs.connect(vehicleImage.getId(),ConstraintSet.TOP,vehicleFrame.getId(),ConstraintSet.TOP,0);
         cs.connect(vehicleImage.getId(),ConstraintSet.START,vehicleFrame.getId(),ConstraintSet.START,20);
         cs.applyTo(vehicleFrame);
+    }
+
+    private ImageView createEditButton(ConstraintLayout vehicleFrame, int id)
+    {
+        ImageView editButton = new ImageView(this);
+        vehicleFrame.addView(editButton);
+        editButton.setId(16500+id);
+        editButton.getLayoutParams().height = 110;
+        editButton.getLayoutParams().width = 110;
+        editButton.setImageResource(R.drawable.ic_edit_button_white);
+        editButton.setClickable(true);
+        ConstraintSet cs = new ConstraintSet();
+        cs.clone(vehicleFrame);
+        cs.connect(editButton.getId(), ConstraintSet.END, vehicleFrame.getId(),ConstraintSet.END,30);
+        cs.connect(editButton.getId(), ConstraintSet.TOP, vehicleFrame.getId(),ConstraintSet.TOP);
+        cs.connect(editButton.getId(), ConstraintSet.BOTTOM, vehicleFrame.getId(),ConstraintSet.BOTTOM);
+        cs.applyTo(vehicleFrame);
+
+        AppData data = SaveSystem.loadData(this);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.lastVehicleInteraction = id;
+                SaveSystem.saveData(VehicleMenu.this, data);
+                openEditVehicleActivity();
+            }
+        });
+
+        return editButton;
+    }
+
+    private void openEditVehicleActivity()
+    {
+        Intent intent = new Intent(this, EditVehicle.class);
+        startActivity(intent);
     }
 
     private TextView createBrandText(AppData data, int id)

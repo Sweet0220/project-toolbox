@@ -94,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/goToAddPerson2"
+        android:id="@+id/editPersonButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginEnd="5dp"

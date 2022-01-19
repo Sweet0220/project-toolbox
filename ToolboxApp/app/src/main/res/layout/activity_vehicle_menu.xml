@@ -8,6 +8,56 @@
     tools:context=".VehicleMenu">
 
     <Button
+        android:id="@+id/deleteVehicleButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_delete_controller"
+        android:fontFamily="@font/prototype_font"
+        android:textColor="#FBFAEC"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addVehicle" />
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:srcCompat="@drawable/bottom_rectangle_rc" />
+
+    <Button
+        android:id="@+id/editVehicleButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_edit_controller"
+        android:fontFamily="@font/prototype_font"
+        android:textColor="#FBFAEC"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView17"
+        app:layout_constraintEnd_toStartOf="@+id/addVehicle"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bottom_rectangle_rc" />
+
+    <Button
         android:id="@+id/backToPersonMenu"
         android:layout_width="35dp"
         android:layout_height="35dp"
