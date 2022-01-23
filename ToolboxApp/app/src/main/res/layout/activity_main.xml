@@ -97,15 +97,14 @@
         android:id="@+id/editPersonButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/ic_edit_controller"
         android:fontFamily="@font/prototype_font"
         android:textColor="#FBFAEC"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintEnd_toStartOf="@+id/goToAddPerson"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView14"
+        app:layout_constraintStart_toStartOf="@+id/imageView14" />
 
     <Button
         android:id="@+id/deletePersonButton"
@@ -118,8 +117,8 @@
         android:textColor="#FBFAEC"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/goToAddPerson" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/imageView13" />
 
     <ScrollView
         android:id="@+id/scrollView1"

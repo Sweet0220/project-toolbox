@@ -1,14 +1,18 @@
 package com.sweet.toolbox;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.PrecomputedText;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +83,22 @@ public class JobMenu extends AppCompatActivity {
             }
         });
 
+        Button deleteJobButton = findViewById(R.id.deleteJobButton);
+        deleteJobButton.setOnClickListener(view -> {
+            if(editToggle1 == 1)
+                editToggle1 = 0;
+            if(deleteToggle1 == 1)
+            {
+                deleteToggle1 = 0;
+                fillJobMenu();
+            }
+            else
+            {
+                deleteToggle1 = 1;
+                fillJobMenuDelete();
+            }
+        });
+
         setNameAndIcon();
         fillJobMenu();
 
@@ -118,6 +138,58 @@ public class JobMenu extends AppCompatActivity {
             case 6:
                 vehicleImage.setImageResource(R.drawable.ic_trailer_black);
                 break;
+        }
+
+    }
+
+    private void fillJobMenuDelete()
+    {
+        AppData data = SaveSystem.loadData(this);
+
+        LinearLayout jobLayout = findViewById(R.id.jobMenuLinearLayout);
+        jobLayout.removeAllViews();
+
+        for(int i=1;i<=data.numberOfJobs;i++)
+        {
+            if(data.jobArray[i].vehicleID == data.lastVehicleInteraction)
+            {
+                ConstraintLayout jobFrame = createJobFrame(data, i);
+
+                ImageView brakeIcon, engineIcon, suspensionIcon, otherIcon;
+                brakeIcon = createBrakeIcon(i,data,jobFrame);
+                engineIcon = createEngineIcon(i,data,jobFrame);
+                suspensionIcon = createSuspensionIcon(i,data,jobFrame);
+                otherIcon = createOtherIcon(i,data,jobFrame);
+
+                addConstraintsToBrake(jobFrame, brakeIcon);
+                addConstraintsToEngine(engineIcon,brakeIcon,jobFrame);
+                addConstraintsToSuspension(suspensionIcon, brakeIcon, jobFrame);
+                addConstraintsToOther(otherIcon, suspensionIcon, jobFrame);
+
+                TextView date = createDateText(i,data,jobFrame);
+                addConstraintsToDate(engineIcon,date,jobFrame);
+
+                TextView costText = createCostText(i,data,jobFrame);
+                addConstraintsToCost(date,costText,jobFrame);
+
+                TextView statusText = createStatusText(i,data,jobFrame);
+                addConstraintsToStatus(costText,statusText,jobFrame);
+
+                switch(data.jobArray[i].status)
+                {
+                    case 1:
+                        createTickIcon(i,jobFrame);
+                        break;
+                    case 0:
+                        createPaymentButton(i,jobFrame,data);
+                        break;
+                }
+
+                createDeleteButton(i,jobFrame,data);
+
+                jobLayout.addView(jobFrame);
+            }
+
         }
 
     }
@@ -521,6 +593,56 @@ public class JobMenu extends AppCompatActivity {
         });
     }
 
+    private void createDeleteButton(int id, ConstraintLayout frame, AppData data)
+    {
+        ImageView deleteButton = new ImageView(this);
+        frame.addView(deleteButton);
+        deleteButton.setImageResource(R.drawable.ic_delete_button_white);
+        deleteButton.setId(30000+id);
+        deleteButton.getLayoutParams().height = 90;
+        deleteButton.getLayoutParams().width = 90;
+        deleteButton.setClickable(true);
+
+        ConstraintSet cs = new ConstraintSet();
+        cs.clone(frame);
+        cs.connect(deleteButton.getId(),ConstraintSet.TOP,12200+id,ConstraintSet.TOP);
+        cs.connect(deleteButton.getId(), ConstraintSet.BOTTOM, 12200+id,ConstraintSet.BOTTOM);
+        cs.connect(deleteButton.getId(), ConstraintSet.END, 12200+id,ConstraintSet.START, 20);
+        cs.applyTo(frame);
+        deleteButton.setOnClickListener(view -> {
+            data.lastJobInteraction = id;
+            SaveSystem.saveData(JobMenu.this,data);
+            fillJobMenu();
+            deleteToggle1 = 0;
+            openConfirmPrompt(data);
+        });
+    }
+
+
+    private void openConfirmPrompt(AppData data)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Stergeti lucrarea?");
+        String content = "Data: " + data.jobArray[data.lastJobInteraction].day + "/" + data.jobArray[data.lastJobInteraction].month + "/" + data.jobArray[data.lastJobInteraction].year + "\nCost: " + data.jobArray[data.lastJobInteraction].cost + " RON\nAtentie: nu se poate recupera!";
+        builder.setMessage(content);
+        builder.setPositiveButton("Da",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteJob(data.lastJobInteraction, data);
+                    }
+        });
+        builder.setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void openJobDetails()
     {
         Intent intent = new Intent(this, JobDetails.class);
@@ -533,4 +655,26 @@ public class JobMenu extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void deleteJob(int id, AppData data)
+    {
+        if(id == data.numberOfJobs)
+        {
+            data.numberOfJobs--;
+            SaveSystem.saveData(this,data);
+            fillJobMenu();
+        }
+        else
+        {
+            int i=id;
+            for(int j=i+1;j<=data.numberOfJobs;j++)
+            {
+                data.jobArray[i] = data.jobArray[j];
+                data.jobArray[i].id--;
+                i++;
+            }
+            data.numberOfJobs--;
+            SaveSystem.saveData(this,data);
+            fillJobMenu();
+        }
+    }
 }

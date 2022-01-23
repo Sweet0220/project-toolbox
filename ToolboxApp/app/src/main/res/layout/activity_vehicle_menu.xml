@@ -18,8 +18,8 @@
         android:textColor="#FBFAEC"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView18"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addVehicle" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView18"
+        app:layout_constraintStart_toStartOf="@+id/imageView18" />
 
     <ImageView
         android:id="@+id/imageView18"
@@ -36,15 +36,14 @@
         android:id="@+id/editVehicleButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/ic_edit_controller"
         android:fontFamily="@font/prototype_font"
         android:textColor="#FBFAEC"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView17"
-        app:layout_constraintEnd_toStartOf="@+id/addVehicle"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView17"
+        app:layout_constraintStart_toStartOf="@+id/imageView17" />
 
     <ImageView
         android:id="@+id/imageView17"

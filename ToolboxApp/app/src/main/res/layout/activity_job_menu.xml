@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FBFAEC"
-    tools:context=".JobMenu">
+    tools:context=".JobMenu"
+    android:id="@+id/editParent">
 
     <Button
         android:id="@+id/deleteJobButton"
@@ -18,22 +19,21 @@
         android:textColor="#FBFAEC"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addJob" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView22"
+        app:layout_constraintStart_toStartOf="@+id/imageView22" />
 
     <Button
         android:id="@+id/editJobButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/ic_edit_controller"
         android:fontFamily="@font/prototype_font"
         android:textColor="#FBFAEC"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView21"
-        app:layout_constraintEnd_toStartOf="@+id/addJob"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/imageView21"
+        app:layout_constraintStart_toStartOf="@+id/imageView21" />
 
     <ImageView
         android:id="@+id/imageView22"

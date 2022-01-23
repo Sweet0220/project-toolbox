@@ -1,14 +1,17 @@
 package com.sweet.toolbox;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -26,7 +29,7 @@ import java.io.File;
 
 public class VehicleMenu extends AppCompatActivity {
 
-    int editToggle = 0, deleteToggle = 0;
+    int editToggle3 = 0, deleteToggle3 = 0;
 
     private void setName(AppData data)
     {
@@ -45,8 +48,8 @@ public class VehicleMenu extends AppCompatActivity {
     @Override
     protected void onResume()
     {
-        editToggle = 0;
-        deleteToggle = 0;
+        editToggle3 = 0;
+        deleteToggle3 = 0;
         super.onResume();
         LinearLayout mainLayout = findViewById(R.id.vehicleMenuLinearLayout);
         mainLayout.removeAllViews();
@@ -57,6 +60,22 @@ public class VehicleMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vehicle_menu);
+
+        Button deleteVehicle = findViewById(R.id.deleteVehicleButton);
+        deleteVehicle.setOnClickListener(view -> {
+            if(editToggle3 == 1)
+                editToggle3 = 0;
+            if(deleteToggle3 == 1)
+            {
+                deleteToggle3 = 0;
+                fillVehicleList();
+            }
+            else
+            {
+                deleteToggle3 = 1;
+                fillVehicleListDelete();
+            }
+        });
 
         Button addVehicle = findViewById(R.id.addVehicle);
         addVehicle.setOnClickListener(new View.OnClickListener() {
@@ -78,16 +97,16 @@ public class VehicleMenu extends AppCompatActivity {
         editVehicleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(deleteToggle == 1)
-                    deleteToggle = 0;
-                if(editToggle == 1)
+                if(deleteToggle3 == 1)
+                    deleteToggle3 = 0;
+                if(editToggle3 == 1)
                 {
-                    editToggle = 0;
+                    editToggle3 = 0;
                     fillVehicleList();
                 }
                 else
                 {
-                    editToggle = 1;
+                    editToggle3 = 1;
                     fillVehicleListEdit();
                 }
 
@@ -126,6 +145,37 @@ public class VehicleMenu extends AppCompatActivity {
                 addConstraintsToNumberText(vehicleFrame,licensePlate,numberText);
 
                 ImageView editButton = createEditButton(vehicleFrame,i);
+
+                vehicleLayout.addView(vehicleFrame);
+            }
+        }
+    }
+
+    private void fillVehicleListDelete()
+    {
+        AppData data = SaveSystem.loadData(this);
+        LinearLayout vehicleLayout = findViewById(R.id.vehicleMenuLinearLayout);
+        vehicleLayout.removeAllViews();
+
+        for(int i=1;i<=data.numberOfVehicles;i++)
+        {
+            if(data.vehicleArray[i].personID == data.lastPersonInteraction)
+            {
+                ConstraintLayout vehicleFrame = createVehicleFrame(i,data);
+
+                ImageView vehicleImage = createVehicleImage(i,vehicleFrame,data);
+                addConstraintsToImage(vehicleImage,vehicleFrame);
+
+                TextView brand = createBrandText(data,i);
+                addConstraintsToBrand(brand,vehicleImage,vehicleFrame);
+
+                TextView licensePlate = createLicenseText(data,i);
+                addConstraintsToLicensePlate(vehicleFrame,licensePlate,brand);
+
+                TextView numberText = createNumberText(data, i);
+                addConstraintsToNumberText(vehicleFrame,licensePlate,numberText);
+
+                createDeleteButton(vehicleFrame, i);
 
                 vehicleLayout.addView(vehicleFrame);
             }
@@ -229,6 +279,99 @@ public class VehicleMenu extends AppCompatActivity {
         });
 
         return editButton;
+    }
+
+    private void createDeleteButton(ConstraintLayout vehicleFrame, int id)
+    {
+        ImageView editButton = new ImageView(this);
+        vehicleFrame.addView(editButton);
+        editButton.setId(22000+id);
+        editButton.getLayoutParams().height = 110;
+        editButton.getLayoutParams().width = 110;
+        editButton.setImageResource(R.drawable.ic_delete_button_white);
+        editButton.setClickable(true);
+        ConstraintSet cs = new ConstraintSet();
+        cs.clone(vehicleFrame);
+        cs.connect(editButton.getId(), ConstraintSet.END, vehicleFrame.getId(),ConstraintSet.END,30);
+        cs.connect(editButton.getId(), ConstraintSet.TOP, vehicleFrame.getId(),ConstraintSet.TOP);
+        cs.connect(editButton.getId(), ConstraintSet.BOTTOM, vehicleFrame.getId(),ConstraintSet.BOTTOM);
+        cs.applyTo(vehicleFrame);
+
+        AppData data = SaveSystem.loadData(this);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.lastVehicleInteraction = id;
+                SaveSystem.saveData(VehicleMenu.this, data);
+                deleteToggle3 = 0;
+                fillVehicleList();
+                openConfirmPrompt(data);
+            }
+        });
+    }
+
+    private void openConfirmPrompt(AppData data)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Stergeti autovehiculul?");
+        String content = "Marca: " + data.vehicleArray[data.lastVehicleInteraction].brand + "\nNr. inmatriculare: " + data.vehicleArray[data.lastVehicleInteraction].licensePlate + "\nAtentie: nu se poate recupera!";
+        builder.setMessage(content);
+        builder.setPositiveButton("Da",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteVehicle(data.lastVehicleInteraction, data);
+                    }
+                });
+        builder.setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deleteVehicle(int id, AppData data)
+    {
+        //Deleting jobs associated with vehicle
+        for(int i=1;i<=data.numberOfJobs;i++)
+        {
+            if(data.jobArray[i].vehicleID == id && i == data.numberOfJobs)
+            {
+                data.numberOfJobs--;
+            }
+            else if(data.jobArray[i].vehicleID == id)
+            {
+                for(int j=i+1; j<=data.numberOfJobs;j++)
+                {
+                    data.jobArray[j-1] = data.jobArray[j];
+                    data.jobArray[j-1].id--;
+                }
+                i--;
+                data.numberOfJobs--;
+            }
+        }
+
+        if(id == data.numberOfVehicles)
+        {
+            data.numberOfVehicles--;
+            SaveSystem.saveData(this,data);
+            fillVehicleList();
+        }
+        else
+        {
+            for(int i=id+1;i<=data.numberOfVehicles;i++) {
+                data.vehicleArray[i - 1] = data.vehicleArray[i];
+                data.vehicleArray[i-1].id--;
+            }
+            data.numberOfVehicles--;
+            SaveSystem.saveData(this,data);
+            fillVehicleList();
+        }
     }
 
     private void openEditVehicleActivity()

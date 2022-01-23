@@ -1,11 +1,13 @@
 package com.sweet.toolbox;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -26,7 +28,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 public class MainActivity extends AppCompatActivity {
 
-    int editToggle=0,deleteToggle=0;
+    int editToggle7=0,deleteToggle7=0;
 
     public void openVehicleMenuActivity()
     {
@@ -43,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume()
     {
-        editToggle = 0;
-        deleteToggle = 0;
+        editToggle7 = 0;
+        deleteToggle7 = 0;
         super.onResume();
         fillMenuList();
     }
@@ -69,20 +71,37 @@ public class MainActivity extends AppCompatActivity {
         Button addButton = (Button) findViewById(R.id.goToAddPerson);
         addButton.setOnClickListener(view -> openAddPersonActivity());
 
+        Button deleteButton = findViewById(R.id.deletePersonButton);
+        deleteButton.setOnClickListener(view -> {
+            if(editToggle7 == 1)
+                editToggle7 = 0;
+            if(deleteToggle7 == 1)
+            {
+                deleteToggle7 = 0;
+                fillMenuList();
+            }
+            else
+            {
+                deleteToggle7 = 1;
+                fillMenuListDelete();
+            }
+        });
+
+
         Button editPersonButton = (Button) findViewById(R.id.editPersonButton);
         editPersonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(deleteToggle == 1)
-                    deleteToggle = 0;
-                if(editToggle == 1)
+                if(deleteToggle7 == 1)
+                    deleteToggle7 = 0;
+                if(editToggle7 == 1)
                 {
-                    editToggle = 0;
+                    editToggle7 = 0;
                     fillMenuList();
                 }
                 else
                 {
-                    editToggle = 1;
+                    editToggle7 = 1;
                     fillMenuListEdit();
                 }
 
@@ -121,6 +140,127 @@ public class MainActivity extends AppCompatActivity {
 
             mainLayout.addView(newPersonFrame);
         }
+    }
+
+    private void fillMenuListDelete()
+    {
+        LinearLayout mainLayout = findViewById(R.id.mainMenuLinearLayout);
+        mainLayout.removeAllViews();
+        AppData data = SaveSystem.loadData(this);
+
+        for(int i=1;i<=data.numberOfPeople;i++)
+        {
+            ConstraintLayout newPersonFrame = createPersonFrame(i,data);
+
+
+            ImageView personImage = createPersonImage(i,newPersonFrame);
+            addConstraintsToImage(personImage,newPersonFrame);
+
+
+            TextView nameText = createFullName(data,i);
+            addConstraintsToFullName(nameText,personImage,newPersonFrame);
+
+
+            TextView numberText = createNumberText(data,i);
+            addConstraintsToNumber(nameText,numberText,newPersonFrame);
+
+            createDeleteButton(newPersonFrame,i);
+
+            mainLayout.addView(newPersonFrame);
+        }
+    }
+
+    private void openConfirmPrompt(AppData data)
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Stergeti persoana?");
+        String content = "Nume: " + data.personArray[data.lastPersonInteraction].lastName + " " + data.personArray[data.lastPersonInteraction].firstName + "\nAtentie: nu se poate recupera!";
+        builder.setMessage(content);
+        builder.setPositiveButton("Da",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deletePerson(data.lastPersonInteraction, data);
+                    }
+                });
+        builder.setNegativeButton("Nu", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void deletePerson(int id, AppData data)
+    {
+        for(int i=1;i<=data.numberOfVehicles;i++)
+        {
+            if(data.vehicleArray[i].personID == id && i == data.numberOfVehicles)
+            {
+                for(int j=1;j<=data.numberOfJobs;j++)
+                {
+                    if(data.jobArray[j].vehicleID == i && j == data.numberOfJobs)
+                    {
+                        data.numberOfJobs--;
+                    }
+                    else if(data.jobArray[j].vehicleID == i)
+                    {
+                        for(int k=j+1;k<=data.numberOfJobs;k++)
+                        {
+                            data.jobArray[k-1]=data.jobArray[k];
+                            data.jobArray[k-1].id--;
+                        }
+                        j--;
+                        data.numberOfJobs--;
+                    }
+                }
+                data.numberOfVehicles--;
+            }
+            else if(data.vehicleArray[i].personID == id)
+            {
+                for(int j=1;j<=data.numberOfJobs;j++)
+                {
+                    if(data.jobArray[j].vehicleID == i && j == data.numberOfJobs)
+                    {
+                        data.numberOfJobs--;
+                    }
+                    else if(data.jobArray[j].vehicleID == i)
+                    {
+                        for(int k=j+1;k<=data.numberOfJobs;k++)
+                        {
+                            data.jobArray[k-1]=data.jobArray[k];
+                            data.jobArray[k-1].id--;
+                        }
+                        j--;
+                        data.numberOfJobs--;
+                    }
+                }
+                for(int j=i+1;j<=data.numberOfVehicles;j++)
+                {
+                    data.vehicleArray[j-1] = data.vehicleArray[j];
+                    data.vehicleArray[j-1].id--;
+                }
+                i--;
+                data.numberOfVehicles--;
+            }
+        }
+
+        if(id==data.numberOfPeople)
+            data.numberOfPeople--;
+        else
+        {
+            for(int i=id+1;i<=data.numberOfPeople;i++)
+            {
+                data.personArray[i-1] = data.personArray[i];
+                data.personArray[i-1].id--;
+            }
+            data.numberOfPeople--;
+        }
+        SaveSystem.saveData(this,data);
+        fillMenuList();
     }
 
     private void fillMenuList()
@@ -209,6 +349,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return editButton;
+    }
+
+    private void createDeleteButton(ConstraintLayout personFrame, int id)
+    {
+        ImageView editButton = new ImageView(this);
+        personFrame.addView(editButton);
+        editButton.setId(16000+id);
+        editButton.getLayoutParams().height = 90;
+        editButton.getLayoutParams().width = 90;
+        editButton.setImageResource(R.drawable.ic_delete_button_white);
+        editButton.setClickable(true);
+        ConstraintSet cs = new ConstraintSet();
+        cs.clone(personFrame);
+        cs.connect(editButton.getId(), ConstraintSet.END, personFrame.getId(),ConstraintSet.END,20);
+        cs.connect(editButton.getId(), ConstraintSet.TOP, personFrame.getId(),ConstraintSet.TOP);
+        cs.connect(editButton.getId(), ConstraintSet.BOTTOM, personFrame.getId(),ConstraintSet.BOTTOM);
+        cs.applyTo(personFrame);
+
+        AppData data = SaveSystem.loadData(this);
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                data.lastPersonInteraction = id;
+                SaveSystem.saveData(MainActivity.this, data);
+                openConfirmPrompt(data);
+                deleteToggle7 = 0;
+                fillMenuList();
+            }
+        });
     }
 
     private void openEditPersonActivity()
